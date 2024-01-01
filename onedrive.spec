@@ -46,13 +46,6 @@ NOTE: OneDrive is not a free software based service.
 
 %prep
 %autosetup -p1
-# sed -i 's|version ||g' Makefile
-# sed -i '/chown/d' Makefile.in
-#sed -i 's/-o root -g users//g' Makefile.in
-#sed -i 's/-o root -g root//g' Makefile.in
-# sed -i '/git/d' Makefile
-##sed -i "s|std\.c\.|core\.stdc\.|" src/sqlite.d
-#echo %{version} > version
 
 %build
 %configure
