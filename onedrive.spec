@@ -2,7 +2,7 @@ Summary:	An unofficial CLI OneDrive Client for Linux
 Name:		onedrive
 Version:	2.4.25
 Release:	1
-Group:		Network
+Group:		Networking/Other
 License:	GPLv3
 URL:		https://github.com/abraunegg/%{name}
 Source0:	https://github.com/abraunegg/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -12,6 +12,7 @@ BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	systemd
 Requires(preun): systemd
+Requires:	logrotate
 
 %description
 #--------------------------------------------------------------------
@@ -48,7 +49,9 @@ NOTE: OneDrive is not a free software based service.
 %autosetup -p1
 
 %build
-%configure
+%configure \
+	--with-systemduserunitdir=%{_userunitdir} \
+	--with-systemdsystemunitdir=%{_unitdir}
 export DFLAGS="-O -g -release -v -wi"
 %make_build DC=ldmd2
 
