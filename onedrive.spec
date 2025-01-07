@@ -1,12 +1,13 @@
 Summary:	An unofficial CLI OneDrive Client for Linux
 Name:		onedrive
-Version:	2.4.25
+Version:	2.5.3
 Release:	1
 Group:		Networking/Other
 License:	GPLv3
 URL:		https://github.com/abraunegg/%{name}
 Source0:	https://github.com/abraunegg/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
-BuildRequires:	ldc
+#BuildRequires:	ldc
+BuildRequires:	qt6-qttools-assistant
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(sqlite3)
@@ -28,15 +29,8 @@ NOTE: OneDrive is not a free software based service.
 
 %files
 %license LICENSE
-%doc README.md CHANGELOG.md
-%doc docs/BusinessSharedFolders.md
-%doc docs/Docker.md
-%doc docs/INSTALL.md
-%doc docs/SharePoint-Shared-Libraries.md
-%doc docs/USAGE.md
-%doc docs/advanced-usage.md
-%doc docs/application-security.md
-%doc config
+%doc readme.md changelog.md
+%doc docs/*
 %{_bindir}/%{name}
 %config %{_sysconfdir}/logrotate.d/onedrive
 %{_userunitdir}/%{name}.service
