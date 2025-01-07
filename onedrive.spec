@@ -6,7 +6,7 @@ Group:		Networking/Other
 License:	GPLv3
 URL:		https://github.com/abraunegg/%{name}
 Source0:	https://github.com/abraunegg/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
-#BuildRequires:	ldc
+BuildRequires:	ldc
 BuildRequires:	qt6-qttools-assistant
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libnotify)
