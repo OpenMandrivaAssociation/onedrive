@@ -1,6 +1,6 @@
 Summary:	An unofficial CLI OneDrive Client for Linux
 Name:		onedrive
-Version:	2.5.4
+Version:	2.5.5
 Release:	1
 Group:		Networking/Other
 License:	GPLv3
