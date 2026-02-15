@@ -40,7 +40,7 @@ NOTE: OneDrive is not a free software based service.
 %{_bindir}/%{name}
 %{_userunitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
-#{_datadir}/bash-completion/completions/%%{name}
+%{_datadir}/bash_completion.d/%{name}
 %{_iconsdir}/hicolor/scalable/places/%{name}.svg
 %{_mandir}/man1/%{name}.1*
 
