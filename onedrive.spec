@@ -9,10 +9,13 @@ Source0:	https://github.com/abraunegg/%{name}/archive/v%{version}/%{name}-%{vers
 Source100:	%{name}.rpmlintrc
 Patch0:	onedrive-2.5.10-fix-websocket-trigger-not-syncing.patch
 Patch1:	onedrive-2.5.10-fix-internal-crash-if-websocket-init-fails.patch
+BuildRequires:	automake
 BuildRequires:	chrpath
 BuildRequires:	ldc
+BuildRequires:	make
 BuildRequires:	qt6-qttools-assistant
 BuildRequires:	systemd
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(sqlite3)
