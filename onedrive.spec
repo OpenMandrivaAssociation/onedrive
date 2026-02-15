@@ -36,11 +36,12 @@ NOTE: OneDrive is not a free software based service.
 %doc readme.md changelog.md
 %doc docs/*
 %config %{_sysconfdir}/logrotate.d/%{name}
+%{_sysconfdir}/bash_completion.d/%{name}
 %ghost %attr(0755,root,root) %dir %{_var}/log/%{name}
 %{_bindir}/%{name}
 %{_userunitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
-%{_datadir}/bash_completion.d/%{name}
+
 %{_iconsdir}/hicolor/scalable/places/%{name}.svg
 %{_mandir}/man1/%{name}.1*
 
