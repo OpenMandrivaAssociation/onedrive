@@ -1,0 +1,62 @@
+diff -rupN onedrive-2.5.10.old/src/config.d onedrive-2.5.10/src/config.d
+--- onedrive-2.5.10.old/src/config.d	2026-01-30 11:04:54.000000000 +0100
++++ onedrive-2.5.10/src/config.d	2026-02-15 16:07:41.937709235 +0100
+@@ -1784,11 +1784,16 @@ class ApplicationConfig {
+ 			addLogEntry();
+ 			addLogEntry("--------------------DEVELOPER_OPTIONS----------------------------");
+ 			addLogEntry("Config option 'force_children_scan'          = " ~ to!string(getValueBool("force_children_scan")));
+-			addLogEntry();
++			addLogEntry("Config option 'monitor_max_loop'             = " ~ to!string(getValueLong("monitor_max_loop")));
++			addLogEntry("Config option 'display_memory'               = " ~ to!string(getValueBool("display_memory")));
++			addLogEntry("Config option 'display_sync_options'         = " ~ to!string(getValueBool("display_sync_options")));
++			addLogEntry("Config option 'display_processing_time'      = " ~ to!string(getValueBool("display_processing_time")));
+ 		}
+ 		
++		// Close out config output
+ 		if (getValueBool("display_running_config")) {
+ 			addLogEntry("-----------------------------------------------------------------");
++			addLogEntry();
+ 		}
+ 	}
+ 	
+diff -rupN onedrive-2.5.10.old/src/main.d onedrive-2.5.10/src/main.d
+--- onedrive-2.5.10.old/src/main.d	2026-02-15 16:02:26.275510770 +0100
++++ onedrive-2.5.10/src/main.d	2026-02-15 16:12:28.222198418 +0100
+@@ -1031,6 +1031,8 @@ int main(string[] cliArgs) {
+ 									oneDriveSocketIo.start();
+ 								}
+ 								addLogEntry("Enabled WebSocket support to monitor Microsoft Graph API changes in near real-time.");
++								if (debugLogging) {addLogEntry("Setting 'disable_websocket_support' to 'true' to force WebSockets to be disabled.", ["debug"]);}
++								appConfig.setValueBool("disable_websocket_support" , true);
+ 							} else {
+ 								addLogEntry("ERROR: Unable to configure WebSocket support to monitor Microsoft Graph API changes in near real-time.");
+ 							}
+@@ -1403,7 +1405,7 @@ int main(string[] cliArgs) {
+ 								Duration nextWebhookCheckDuration = oneDriveWebhook.getNextExpirationCheckDuration();
+ 								if (nextWebhookCheckDuration < sleepTime) sleepTime = nextWebhookCheckDuration;
+ 								notificationReceived = false;
+-							} else if (!appConfig.getValueBool("disable_websocket_support") && appConfig.curlSupportsWebSockets) {
++							} else if (oneDriveSocketIo !is null && !appConfig.getValueBool("disable_websocket_support") && appConfig.curlSupportsWebSockets) {
+ 								Duration nextWebsocketCheckDuration = oneDriveSocketIo.getNextExpirationCheckDuration();
+ 								if (nextWebsocketCheckDuration < sleepTime) sleepTime = nextWebsocketCheckDuration;
+ 							}
+@@ -1856,9 +1858,16 @@ extern(C) nothrow @nogc @system void exi
+     if (signo == SIGSEGV) {
+ 		// Was SIGTERM used?
+ 		if (!sigtermHandlerTriggered) {
+-			// No .. so most likely SIGINT (CTRL-C)
+-			printf("Due to a termination signal, internal processing stopped abruptly. The application will now exit in a unclean manner.\n");
+-			exit(130);
++			// No .. so most likely SIGINT (CTRL-C) - lets check
++			if (signo == SIGINT) {
++				// Yes - SIGINT was used
++				printf("Due to a termination signal, internal processing stopped abruptly. The application will now exit in a unclean manner.\n");
++				exit(130);
++			} else {
++				// Confirmed as SIGSEGV, but not SIGINT and SIGTERM not used
++				printf("FATAL: Segmentation fault (SIGSEGV). The application encountered an internal error and will now exit in a unclean manner.\n");
++				exit(139);
++			}
+ 		} else {
+ 			// High probability of being shutdown by systemd, for example: systemctl --user stop onedrive
+ 			// Exit in a manner that does not trigger an exit failure in systemd

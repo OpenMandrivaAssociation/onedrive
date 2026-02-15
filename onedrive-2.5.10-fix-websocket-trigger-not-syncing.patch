@@ -1,0 +1,12 @@
+diff -rupN onedrive-2.5.10.old/src/main.d onedrive-2.5.10/src/main.d
+--- onedrive-2.5.10.old/src/main.d	2026-01-30 11:04:54.000000000 +0100
++++ onedrive-2.5.10/src/main.d	2026-02-15 16:02:26.275510770 +0100
+@@ -1379,7 +1379,7 @@ int main(string[] cliArgs) {
+ 					auto sleepTime = nextCheckTime - currentTime;
+ 					if (debugLogging) {addLogEntry("Sleep for " ~ to!string(sleepTime), ["debug"]);}
+ 					
+-					if (filesystemMonitor.initialised || webhookEnabled) {
++					if (filesystemMonitor.initialised || webhookEnabled || oneDriveSocketIo !is null) {
+ 
+ 						if (filesystemMonitor.initialised) {
+ 							// If local monitor is on and is waiting (previous event was not from webhook)

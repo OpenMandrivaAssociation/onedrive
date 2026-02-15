@@ -1,0 +1,6 @@
+# False psositive: the file is named build-rpm-howto.md
+addFilter("E: file-contains-buildroot")
+
+# Useless
+addFilter("W: name-repeated-in-summary")
+addFilter("W: package-with-huge-docs")
