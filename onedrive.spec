@@ -1,14 +1,14 @@
 Summary:	An unofficial CLI OneDrive Client for Linux
 Name:	onedrive
-Version:	2.5.10
+Version:	2.5.11
 Release:	1
 Group:	Networking/Other
 License:	GPLv3+
 Url:		https://github.com/abraunegg/%{name}
 Source0:	https://github.com/abraunegg/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source100:	%{name}.rpmlintrc
-Patch0:	onedrive-2.5.10-fix-websocket-trigger-not-syncing.patch
-Patch1:	onedrive-2.5.10-fix-internal-crash-if-websocket-init-fails.patch
+# dropped (no longer applies): Patch0:	onedrive-2.5.11-fix-websocket-trigger-not-syncing.patch
+# dropped (no longer applies): Patch1:	onedrive-2.5.11-fix-internal-crash-if-websocket-init-fails.patch
 BuildRequires:	automake
 BuildRequires:	chrpath
 BuildRequires:	ldc
