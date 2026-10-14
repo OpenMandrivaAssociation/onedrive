@@ -19,7 +19,6 @@ BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(sqlite3)
-Requires(preun): systemd
 Requires:	logrotate
 
 %description
