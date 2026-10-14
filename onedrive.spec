@@ -43,11 +43,8 @@ NOTE: OneDrive is not a free software based service.
 %{_unitdir}/%{name}@.service
 
 %{_iconsdir}/hicolor/scalable/places/%{name}.svg
+%{_iconsdir}/hicolor/scalable/apps/%{name}-notifications.svg
 %{_mandir}/man1/%{name}.1*
-
-%preun
-%systemd_user_preun %{name}.service
-%systemd_preun %{name}@.service
 
 #---------------------------------------------------------------------------
 
